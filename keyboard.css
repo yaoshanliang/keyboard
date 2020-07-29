@@ -1,6 +1,4 @@
-.keyboard {
-    display: none;
-}
+
 .akeyboard-keyboard {
     height: 560px;
     width: 1750px;
@@ -9,7 +7,7 @@
     padding: 5px;
     padding-top: 9px;
     box-sizing: border-box;
-    display: none;
+    /* display: none; */
 }
 
 .akeyboard-keyboard-innerKeys {
@@ -48,6 +46,7 @@
 }
 .akeyboard-keyboard-keys-Change {
     width: 200px;
+    background: #e0e3e5;
 }
 
 .akeyboard-keyboard-keys-Tab {
@@ -166,6 +165,6 @@
 }
 
 .deleteIcon {
-    width: 140px;
-    height: 100px;
+    width: 45px;
+    margin-top: 30px;
 }

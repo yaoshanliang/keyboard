@@ -50,7 +50,7 @@
         <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-b">B</div>
         <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-n">N</div>
         <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-m">M</div>
-        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-Delete"><img class="deleteIcon" src="./images/delete.png"/></div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-Delete"><img class="deleteIcon" src="./images/delete1.png"/></div>
         <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-Change">手写/拼音</div>
     </div>
 
@@ -74,7 +74,7 @@
         }
         $('#text').val(text);
     });
-    $('.deleteIcon').click(function() {
+    $('.akeyboard-keyboard-keys-Delete').click(function() {
         text = text.substr(0, text.length - 1);
         $('#text').val(text);
 
