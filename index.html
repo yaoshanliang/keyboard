@@ -1,0 +1,140 @@
+<link rel="stylesheet" href="keyboard.css">
+<script src="jquery-3.5.1.min.js"></script>
+<script src="keyboard.js"></script>
+
+<input type="text" id="text">
+
+<div class="akeyboard-keyboard akeyboard-keyboard-fixedBottomCenter">
+    <div class="akeyboard-keyboard-innerKeys">
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-1">1</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-2">2</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-3">3</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-4">4</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-5">5</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-6">6</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-7">7</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-8">8</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-9">9</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-0">0</div>
+    </div>
+    <div class="akeyboard-keyboard-innerKeys">
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-Q">Q</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-W">W</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-E">E</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-R">R</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-T">T</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-Y">Y</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-U">U</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-I">I</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-O">O</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-P">P</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys--">-</div>
+    </div>
+    <div class="akeyboard-keyboard-innerKeys">
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-A">A</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-S">S</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-D">F</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-F">F</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-G">G</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-H">H</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-J">J</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-K">K</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-L">L</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-Clear">清空</div>
+    </div>
+    <div class="akeyboard-keyboard-innerKeys">
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-Z">Z</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-x">X</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-c">C</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-v">V</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-b">B</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-n">N</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-m">M</div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-Delete"><img class="deleteIcon" src="./images/delete.png"/></div>
+        <div class="akeyboard-keyboard-keys akeyboard-keyboard-keys-Change">手写/拼音</div>
+    </div>
+
+</div>
+<script>
+    var text = "";
+
+    $('#text').focus(function () {
+        $('.akeyboard-keyboard').css('display', 'block');
+    })
+    $('.akeyboard-keyboard-keys').click(function () {
+        var key = $(this).text();
+        switch (key) {
+            case '清空':
+                text = '';
+                break;
+            default:
+                text += key;
+                break;
+
+        }
+        $('#text').val(text);
+    });
+    $('.deleteIcon').click(function() {
+        text = text.substr(0, text.length - 1);
+        $('#text').val(text);
+
+    })
+
+    function handleClick(key) {
+        if (this.onclick && this.onclick['*']) {
+            this.onclick['*'].bind(this)();
+            return;
+        }
+
+        if (this.onclick && this.onclick[key]) {
+            this.onclick[key].bind(this)();
+            return;
+        }
+
+        const inputEl = document.querySelector(this.inputOn.inputEl);
+
+        if (key === 'Shift') {
+            if (this.isCaps) return;
+            if (this.isShift) {
+                this.isShift = false;
+                this.keys = JSON.parse(JSON.stringify(this.key));
+                return;
+            }
+            this.isShift = true;
+            this.keys = JSON.parse(JSON.stringify(this.shiftKey));
+            return;
+        } else if (key === 'Caps') {
+            if (this.isShift) return;
+            if (this.isCaps) {
+                this.isCaps = false;
+                this.keys = JSON.parse(JSON.stringify(this.key));
+                return;
+            }
+            this.isCaps = true;
+            this.keys = JSON.parse(JSON.stringify(this.capsKey));
+            return;
+        }
+
+        if (this.inputOn) {
+            switch (key) {
+                case 'Delete':
+                    inputEl[this.inputOn.inputType] = inputEl[this.inputOn.inputType].substr(0, inputEl[this.inputOn.inputType].length - 1);
+                    return;
+
+                case 'Tab':
+                    inputEl[this.inputOn.inputType] += '  ';
+                    return;
+
+                case 'Enter':
+                    inputEl[this.inputOn.inputType] += '\n';
+                    return;
+
+                case 'Space':
+                    inputEl[this.inputOn.inputType] += ' ';
+                    return;
+            }
+
+            inputEl[this.inputOn.inputType] += key;
+        }
+    }
+</script>
