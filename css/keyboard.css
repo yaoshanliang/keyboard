@@ -10,6 +10,7 @@
 #keyboard4 {
   text-align: center;
   width: 400px;
+  margin: 0 auto;
   
 }
 .akeyboard-keyboard {
@@ -140,9 +141,6 @@
 }
 .akeyboard-keyboard-fixedBottomCenter-number {
   width: 400px;
-  position: fixed;
-  bottom: 0px;
-  /* left: 0px; */
   border-radius: 0 !important;
 }
 
