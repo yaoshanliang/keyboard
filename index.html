@@ -69,25 +69,11 @@
 </div>
 
 <div id="keyboard3" class="akeyboard-keyboard akeyboard-keyboard-fixedBottomCenter">
-    <div class="akeyboard-keyboard-innerKeys">
+    <div class="akeyboard-keyboard-innerKeys" style="display: inline-block; width: 100%;overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;">
         <div class="akeyboard-keyboard-pinyin"></div>
-        <div class="akeyboard-keyboard-item"></div>
-        <div class="akeyboard-keyboard-item">3</div>
-        <div class="akeyboard-keyboard-item">4</div>
-        <div class="akeyboard-keyboard-item">3</div>
-        <div class="akeyboard-keyboard-item">4</div>
-        <div class="akeyboard-keyboard-item">3</div>
-        <div class="akeyboard-keyboard-item">4</div>
-        <div class="akeyboard-keyboard-item">3</div>
-        <div class="akeyboard-keyboard-item">4</div>
-        <div class="akeyboard-keyboard-item">3</div>
-        <div class="akeyboard-keyboard-item">4</div>
-        <div class="akeyboard-keyboard-item">3</div>
-        <div class="akeyboard-keyboard-item">4</div>
-        <div class="akeyboard-keyboard-item">3</div>
-        <div class="akeyboard-keyboard-item">4</div>
-        <div class="akeyboard-keyboard-item">3</div>
-        <div class="akeyboard-keyboard-item">4</div>
+
 
     </div>
     <div class="akeyboard-keyboard-innerKeys">
@@ -132,6 +118,9 @@
     var text = "";// 初始文字
     var pinyin = "";// 初始拼音
     var keyboard = "keyboard1";// 初始键盘
+    var page = 1;
+    var totalPages = 1;
+    var chineseArray = [];
 
     $('#text').focus(function () {
         $('#keyboard1').css('display', 'block');
@@ -172,31 +161,93 @@
                 if ($('#keyboard3').css('display') == 'block') {
                     pinyin += key;
                     var chinese = pinyinUtil.getHanzi(pinyin);
-                    var chineseArray = chinese.split('');
+                    chineseArray = chinese.split('');
                     console.log(chinese);
                     console.log(chineseArray);
-                    $('.akeyboard-keyboard-pinyin').text(pinyin);
-                }
+                    page = 1;
+                    totalPages = parseInt(chineseArray.length / 10) + 1;
+                    var html = '<div class="akeyboard-keyboard-pinyin">' + pinyin + '</div>';
+                    if (chineseArray.length > 10) {
 
+                    }
+                    // html += '<div class="akeyboard-keyboard-up">' + '《' + '</div>';
+                    for (var i = 0; i < 10; i++) {
+                        if (chineseArray[i] != undefined)
+                            html += '<div class="akeyboard-keyboard-item">' + chineseArray[i] + '</div>';
+                    }
+                    if (page < totalPages) {
+                        html += '<div class="akeyboard-keyboard-down">' + '》' + '</div>';
+                    }
+
+                    $('.akeyboard-keyboard-pinyin').parent().html(html);
+                    $('.akeyboard-keyboard-item').click(function () {
+                        var key = $(this).text();
+                        $('#text').val($('#text').val() + key);
+                    })
+                }
 
                 break;
         }
-
-
     });
+
     $('.akeyboard-keyboard-keys-Delete').click(function () {
         text = text.substr(0, text.length - 1);
         $('#text').val(text);
     })
     $('.akeyboard-keyboard-keys-Delete-pinyin').click(function () {
+        if (pinyin == '') {
+            text = $('#text').val();
+            text = text.substr(0, text.length - 1);
+            $('#text').val(text);
+        }
         pinyin = pinyin.substr(0, pinyin.length - 1);
+
         $('.akeyboard-keyboard-pinyin').text(pinyin);
+
     })
-    $('.akeyboard-keyboard-item').click(function () {
+    $(document).on("click", '.akeyboard-keyboard-item', function () {
         var key = $(this).text();
         $('#text').val($('#text').val() + key);
     })
 
+    // 下一页
+    $(document).on("click", '.akeyboard-keyboard-down', function () {
+        page++;
+        console.log(page);
+        console.log(totalPages);
+
+        html = '<div class="akeyboard-keyboard-pinyin">' + pinyin + '</div>';
+        html += '<div class="akeyboard-keyboard-up">' + '《' + '</div>';
+        for (var i = (page - 1) * 10; i < page * 10; i++) {
+            if (chineseArray[i] != undefined)
+                html += '<div class="akeyboard-keyboard-item">' + chineseArray[i] + '</div>';
+        }
+        if (page < totalPages) {
+            html += '<div class="akeyboard-keyboard-down">' + '》' + '</div>';
+        }
+
+        $('.akeyboard-keyboard-pinyin').parent().html(html);
+    })
+
+    // 上一页
+    $(document).on("click", '.akeyboard-keyboard-up', function () {
+        page--;
+        console.log(page);
+
+        html = '<div class="akeyboard-keyboard-pinyin">' + pinyin + '</div>';
+        if (page > 1) {
+            html += '<div class="akeyboard-keyboard-up">' + '《' + '</div>';
+        }
+        for (var i = (page - 1) * 10; i < page * 10; i++) {
+            if (chineseArray[i] != undefined)
+                html += '<div class="akeyboard-keyboard-item">' + chineseArray[i] + '</div>';
+        }
+        if (page < totalPages) {
+            html += '<div class="akeyboard-keyboard-down">' + '》' + '</div>';
+        }
+
+        $('.akeyboard-keyboard-pinyin').parent().html(html);
+    })
 
 
 </script>

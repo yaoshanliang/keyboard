@@ -11,7 +11,6 @@
   text-align: center;
   width: 400px;
   margin: 0 auto;
-  
 }
 .akeyboard-keyboard {
   height: 560px;
@@ -68,6 +67,35 @@
   font-size: 40px;
 }
 
+.akeyboard-keyboard-up {
+  height: 100px;
+  border-radius: 2px;
+  display: inline-block;
+  line-height: 100px;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 10px;
+  margin-right: 50px;
+  cursor: pointer;
+  user-select: none;
+  color: #37474f;
+  font-size: 40px;
+}
+
+.akeyboard-keyboard-down {
+  height: 100px;
+  border-radius: 2px;
+  display: inline-block;
+  line-height: 100px;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 10px;
+  margin-left: 50px;
+  cursor: pointer;
+  user-select: none;
+  color: #37474f;
+  font-size: 40px;
+}
 .akeyboard-keyboard-pinyin {
   border-radius: 2px;
   display: inline-block;
@@ -82,6 +110,7 @@
   font-size: 40px;
   text-decoration: none;
   border-bottom: 1px solid;
+  height: 80px;
 }
 
 .akeyboard-keyboard-keys:hover {
@@ -95,6 +124,10 @@
 }
 .akeyboard-keyboard-keys-Delete-Number {
   width: 100px;
+  background: #e0e3e5;
+}
+.akeyboard-keyboard-keys-Delete-pinyin {
+  width: 140px;
   background: #e0e3e5;
 }
 .akeyboard-keyboard-keys-Clear {
