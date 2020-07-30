@@ -69,9 +69,8 @@
 </div>
 
 <div id="keyboard3" class="akeyboard-keyboard akeyboard-keyboard-fixedBottomCenter">
-    <div class="akeyboard-keyboard-innerKeys" style="display: inline-block; width: 100%;overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;">
+    <div class="akeyboard-keyboard-innerKeys"
+        style="display: inline-block; width: 100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; height:100px;">
         <div class="akeyboard-keyboard-pinyin"></div>
 
 
@@ -158,35 +157,35 @@
                     text += key;
                     $('#text').val(text);
                 }
+
                 if ($('#keyboard3').css('display') == 'block') {
                     pinyin += key;
-                    var chinese = pinyinUtil.getHanzi(pinyin);
-                    chineseArray = chinese.split('');
-                    console.log(chinese);
-                    console.log(chineseArray);
-                    page = 1;
-                    totalPages = parseInt(chineseArray.length / 10) + 1;
-                    var html = '<div class="akeyboard-keyboard-pinyin">' + pinyin + '</div>';
-                    if (chineseArray.length > 10) {
-
-                    }
-                    // html += '<div class="akeyboard-keyboard-up">' + '《' + '</div>';
-                    for (var i = 0; i < 10; i++) {
-                        if (chineseArray[i] != undefined)
-                            html += '<div class="akeyboard-keyboard-item">' + chineseArray[i] + '</div>';
-                    }
-                    if (page < totalPages) {
-                        html += '<div class="akeyboard-keyboard-down">' + '》' + '</div>';
-                    }
-
-                    $('.akeyboard-keyboard-pinyin').parent().html(html);
-                    $('.akeyboard-keyboard-item').click(function () {
-                        var key = $(this).text();
-                        $('#text').val($('#text').val() + key);
-                    })
                 }
 
+
                 break;
+        }
+
+        if ($('#keyboard3').css('display') == 'block') {
+            var chinese = pinyinUtil.getHanzi(pinyin);
+            chineseArray = chinese.split('');
+            console.log(chinese);
+            console.log(chineseArray);
+            page = 1;
+            totalPages = parseInt(chineseArray.length / 10) + 1;
+            var html = '<div class="akeyboard-keyboard-pinyin">' + pinyin + '</div>';
+            if (chineseArray.length > 10) {
+
+            }
+            for (var i = 0; i < 10; i++) {
+                if (chineseArray[i] != undefined)
+                    html += '<div class="akeyboard-keyboard-item">' + chineseArray[i] + '</div>';
+            }
+            if (page < totalPages) {
+                html += '<div class="akeyboard-keyboard-down">' + '》' + '</div>';
+            }
+
+            $('.akeyboard-keyboard-pinyin').parent().html(html);
         }
     });
 
